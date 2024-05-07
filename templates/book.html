@@ -1,0 +1,850 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- Mobile Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <!-- Site Metas -->
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="shortcut icon" href="images/favicon.png" type="">
+
+  <title> DineEase </title>
+
+  <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+
+  <style>
+    .menu-items-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Three equal columns */
+      gap: 10px;
+  }
+  
+    /* Style the menu items container */
+.menu-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Style each menu item */
+.menu-item {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 200px;
+}
+
+/* Hover effect */
+.menu-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* Style the label for the checkbox */
+.menu-item-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Style the checkbox */
+.menu-item-checkbox {
+    margin-right: 10px;
+}
+
+/* Style the quantity input */
+.menu-item-quantity {
+    width: 50px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+/* Additional styles as needed */
+.menu-categories {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.menu-category {
+  margin-bottom: 20px;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+
+.menu-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+
+.menu-item-details {
+  flex: 1;
+}
+
+.menu-item-details h4 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.menu-item-details p {
+  margin: 5px 0;
+}
+
+.menu-item-checkbox {
+  margin-right: 5px;
+}
+
+.menu-item-label {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.menu-item-quantity {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.menu-categories {
+  max-height: 500px; /* Set the maximum height for the menu-categories */
+  max-width: 800px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto;
+}
+
+
+
+  </style>
+</head>
+
+<body class="sub_page">
+
+  <div class="hero_area">
+    <div class="bg-box">
+      <img src="{% static 'images/hero-bg.jpg' %}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+      <div class="container">
+        <nav class="navbar navbar-expand-lg custom_nav-container ">
+          <a class="navbar-brand" href="index.html">
+            <span>
+              DineEase
+            </span>
+          </a>
+
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class=""> </span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav  mx-auto ">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url '' %}">Home </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'menu' %}">Menu</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Pre-Booking
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'add_reservation' %}">Table Booking</a>
+                    <a class="dropdown-item" href="{% url 'catering_booking' %}">Catering Booking</a>
+    
+                    <!-- Add more options as needed -->
+                </div>
+              </li>
+            
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'booking_list'  %}" id="idBookings">Bookings </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'orders_lists' %}">Orders </a>
+              </li>
+              <li class="nav-item">
+                {% if user.is_authenticated %}
+                  <a class="nav-link" href="{% url 'loggout' %}">Logout</a>
+                {% else %}
+                  <a class="nav-link" href="{% url 'loginn' %}">Login</a>
+                {% endif %}
+              </li>
+              <a href="#" class="nav-item nav-link" style="color: white; font-weight: bold;">Welcome, {{user.name}}
+            </ul>
+            <div class="user_option">
+              {% comment %} <a href="" class="user_link">
+                <i class="fa fa-user" aria-hidden="true"></i>
+              </a> {% endcomment %}
+              <a class="cart_link" href="{% url 'cart' %}">
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                  <g>
+                    <g>
+                      <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                   c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                   C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                   c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                   C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                    </g>
+                  </g>
+                  <g>
+                    <g>
+                      <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                   c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                    </g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                  <g>
+                  </g>
+                </svg>
+              </a>
+              {% comment %} <form class="form-inline">
+                <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+              </form> 
+              <a href="" class="order_online">
+                Orders
+              </a> {% endcomment %}
+            </div>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <!-- end header section -->
+  </div>
+
+  <!-- book section -->
+  <section class="book_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          Book A Table
+        </h2>
+        {% if error_message %}
+        <p class="error text-danger">{{ error_message }}</p>
+      {% endif %}
+      
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form_container">
+            <form method="POST"> <!-- Specify the HTTP method as POST -->
+              {% csrf_token %} <!-- Include a CSRF token for form security -->
+              {% comment %} <div>
+                <input type="text" class="form-control" name="name" placeholder="Your Name" value="{{ user.name }}" readonly required/> <!-- Use 'name' attribute -->
+              </div>
+              <div>
+                <input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{{ user.phone }}" readonly required/> <!-- Use 'name' attribute -->
+              </div>
+              <div>
+                <input type="email" class="form-control" name="email" placeholder="Your Email" value="{{ user.email }}" readonly required /> <!-- Use 'name' attribute -->
+              </div> {% endcomment %}
+              <input type="date" class="form-control" name="reservation_date" id="reservation_date" />
+                <div id="date_error" class="text-danger"></div>
+              <div>
+                <div class="form-group">
+                  <label for="start-time">Start Time (Between 10 AM and 10 PM)</label>
+                  <input type="time" id="start-time" name="start_time" class="form-control form-control-lg" required />
+                </div>
+                
+                <div class="form-group">
+                  <label for="end-time">End Time</label>
+                  <input type="time" id="end-time" name="end_time" class="form-control form-control-lg" readonly />
+                </div>
+                <label for="table-type">Table Type</label>
+                  <select class="form-control" name="table_name" id="table-type">
+                      <option value="">Select a table type</option>
+                      <optgroup label="Two-Top">
+                          <option value="Two-Top (1)">Two-Top (1)</option>
+                          <option value="Two-Top (2)">Two-Top (2)</option>
+                          <option value="Two-Top (3)">Two-Top (3)</option>
+                      </optgroup>
+                      <optgroup label="Four-Top">
+                          <option value="Four-Top (1)">Four-Top (1)</option>
+                          <option value="Four-Top (2)">Four-Top (2)</option>
+                          <option value="Four-Top (3)">Four-Top (3)</option>
+                      </optgroup>
+                          <optgroup label="Six-Top">
+                            <option value="Six-Top (1)">Six-Top (1)</option>
+                            <option value="Six-Top (2)">Six-Top (2)</option>
+                            <option value="Six-Top (3)">Six-Top (3)</option>
+                          </optgroup>
+                          <optgroup label="Eight-Top">
+                            <option value="Eight-Top (1)">Eight-Top (1)</option>
+                            <option value="Eight-Top (2)">Eight-Top (2)</option>
+                            <option value="Eight-Top (3)">Eight-Top (3)</option>
+                          </optgroup>
+                          <optgroup label="Large Party (10 persons)">
+                            <option value="Large Party (1)">Large Party (1)</option>
+                            <option value="Large Party (2)">Large Party (2)</option>
+                            <option value="Large Party (3)">Large Party (3)</option>
+                          </optgroup>
+                      </select>
+            </div>
+            <div>
+              <h3>Selected Menu Items:</h3>
+              <textarea name="selected_menu_items" id="selected-menu-items" rows="4" cols="63" readonly></textarea>
+            </div>
+          
+            <div class="btn_box">
+                <button type="submit" id="btnBook" class="btn btn-primary">Book Now</button>
+            </div>
+        </form>
+          </div>
+        </div>
+          {% comment %} <div class="map_container">
+            <!-- Replace this div with the Google Maps iframe -->
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62955.28227692174!2d76.77796412085486!3d9.53432592814221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0635e244723219%3A0x67bf6074c37dfc5f!2sTharavadu%20The%20multi%20Cuisine%20Restaurant!5e0!3m2!1sen!2sin!4v1696702743268!5m2!1sen!2sin" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div> {% endcomment %}
+          <div class="col-md-6">
+            <h3>Select Menu Items:</h3>
+            <div class="menu-categories">
+              <div class="menu-categories-grid">
+                  {% for category, items in categorized_menu_items.items %}
+                  <div class="menu-category">
+                      <h3>{{ category }}</h3>
+                      <div class="menu-items-grid">
+                          {% for menu_item in items %}
+                          {% with stock=menu_item.stock %}
+                          {% if stock %}
+                          <div class="menu-item">
+                              <img src="{{ menu_item.img.url }}" alt="{{ menu_item.name }}" class="menu-item-image">
+                              <div class="menu-item-details">
+                                  <h4>{{ menu_item.name }}</h4>
+                                  <p>₹{{ menu_item.price }}</p>
+                                  <input type="checkbox" id="menu_item_{{ menu_item.id }}" name="menu_items" value="{{ menu_item.id }}" class="menu-item-checkbox" onclick="updateSelectedMenuItems(this)">
+                                  <input type="number" name="menu_item_quantity_{{ menu_item.id }}" value="1" min="1" max="{{ stock.stock_quantity }}" class="menu-item-quantity" oninput="this.value = Math.max(parseInt(this.value) || 0, 0); this.value = Math.min(this.value, {{ stock.stock_quantity }});">
+                              </div>
+                          </div>
+                          {% endif %}
+                          {% endwith %}
+                          {% endfor %}
+                      </div>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+        </div>
+        
+      </div>
+      <br>
+      </div>
+    </div>
+  </section>
+  <!-- end book section -->
+
+  <!-- footer section -->
+  <footer class="footer_section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 footer-col">
+          <div class="footer_contact">
+            <h4>
+              Contact Us
+            </h4>
+            <div class="contact_link_box">
+              <a href="">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <span>
+                  Kanjirapally
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <span>
+                  Call +91 8113023079
+                </span>
+              </a>
+              <a href="">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+                <span>
+                  dineease@gmail.com
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <div class="footer_detail">
+            <a href="" class="footer-logo">
+              DineEase
+            </a>
+            <p>
+              Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 english words, combined with
+            </p>
+            <div class="footer_social">
+              <a href="">
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-linkedin" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="">
+                <i class="fa fa-pinterest" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 footer-col">
+          <h4>
+            Opening Hours
+          </h4>
+          <p>
+            Everyday
+          </p>
+          <p>
+            8.00 Am -11.00 Pm
+          </p>
+        </div>
+      </div>
+      <div class="footer-info">
+        <p>
+          &copy; <span id="displayYear"></span> All Rights Reserved By
+          <a href="https://html.design/">DineEase</a><br><br>
+          &copy; <span id="displayYear"></span> Distributed By
+          <a href="https://themewagon.com/" target="_blank">DineEase</a>
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- footer section -->
+
+  <!-- jQery -->
+  <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+  <!-- popper js -->
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+  </script>
+  <!-- bootstrap js -->
+  <script src="{% static 'js/bootstrap.js' %}"></script>
+  <!-- owl slider -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js">
+  </script>
+  <!-- isotope js -->
+  <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
+  <!-- nice select -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
+  <!-- custom js -->
+  <script src="{% static 'js/custom.js' %}"></script>
+  <!-- Google Map -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
+  </script>
+  <!-- End Google Map -->
+  {% if messages %}
+  <ul class="messages">
+      {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+  </ul>
+{% endif %}
+
+
+<script>
+  // Parse the menu item data from the template
+  const menuItemsData = {{ menu_items_data|safe }};
+  
+  const menuItems = document.querySelectorAll('.menu-item-checkbox');
+  const quantities = document.querySelectorAll('.menu-item-quantity');
+  const totalPriceElement = document.getElementById('total-price');
+
+  // Update the total price when the state of checkboxes or quantities change
+  function updateTotalPrice() {
+      let total = 0;
+      for (let i = 0; i < menuItems.length; i++) {
+          if (menuItems[i].checked) {
+              const quantity = parseInt(quantities[i].value, 10);
+              const price = parseFloat(menuItemsData[i].price);
+              total += quantity * price;
+          }
+      }
+      totalPriceElement.textContent = total.toFixed(2);
+  }
+
+  menuItems.forEach((checkbox, index) => {
+      checkbox.addEventListener('change', updateTotalPrice);
+      quantities[index].addEventListener('input', updateTotalPrice);
+  });
+
+  // Initial calculation
+  updateTotalPrice();
+
+  const quantityInputs = document.querySelectorAll('.menu-item-quantity');
+
+  // Add event listener to each input field
+  quantityInputs.forEach(input => {
+      input.addEventListener('change', function() {
+          const value = parseInt(this.value);
+          if (value < 1 || value > 20 || isNaN(value)) {
+              this.value = Math.min(20, Math.max(1, value)); // Limit the value between 1 and 20
+              this.nextElementSibling.style.display = 'block'; // Show the error message
+          } else {
+              this.nextElementSibling.style.display = 'none'; // Hide the error message
+          }
+      });
+  });
+
+</script>
+<script>
+  // Get all the checkboxes representing menu items
+  const menuCheckboxes = document.querySelectorAll('.menu-item-checkbox');
+
+  // Add event listener to each checkbox
+  menuCheckboxes.forEach(function(checkbox) {
+      checkbox.addEventListener('change', function() {
+          updateSelectedMenuItems();
+      });
+  });
+
+  // Function to update the selected menu items in the textarea
+  function updateSelectedMenuItems() {
+      const selectedItems = [];
+      menuCheckboxes.forEach(function(checkbox) {
+          if (checkbox.checked) {
+              const menuItemId = checkbox.value;
+              const menuItemName = document.querySelector('label[for="' + checkbox.id + '"]').textContent.trim();
+              const menuItemRate = document.querySelector('label[for="' + checkbox.id + '"]').nextElementSibling.textContent.trim();
+              const quantity = document.querySelector('input[name="menu_item_quantity_' + menuItemId + '"]').value;
+              selectedItems.push(`${menuItemName} ${menuItemRate} - Quantity: ${quantity}`);
+          }
+      });
+      document.getElementById('selected-menu-items').value = selectedItems.join('\n');
+  }
+</script>
+
+
+
+
+
+{% comment %} <script>
+  document.addEventListener('DOMContentLoaded', function () {
+      const dateInput = document.getElementById('reservation_date');
+      const dateError = document.getElementById('date_error');
+
+      // Get the current date in yyyy-mm-dd format
+      const currentDate = new Date().toISOString().split('T')[0];
+
+      dateInput.addEventListener('change', function () {
+          const selectedDate = dateInput.value;
+
+          if (selectedDate < currentDate) {
+              dateError.textContent = 'Please select a date from today onwards.';
+              dateInput.value = ''; // Clear the input field if the date is invalid
+          } else {
+              dateError.textContent = ''; // Clear the error message if the date is valid
+          }
+      });
+  });
+</script> {% endcomment %}
+{% comment %} <script type="text/javascript">
+  // Get a reference to the date input field by its ID
+  var reservationDateInput = document.getElementById('reservation_date');
+
+  // Get today's date
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; // January is 0
+  var yyyy = today.getFullYear();
+
+  // Format today's date as "YYYY-MM-DD"
+  if (dd < 10) {
+      dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+      mm = '0' + mm;
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+
+  // Set the minimum date attribute to today
+  reservationDateInput.min = today;
+
+  // Add an event listener for date input changes
+  reservationDateInput.addEventListener('change', function () {
+      var selectedDate = new Date(this.value);
+      if (selectedDate < today) {
+          alert('Please select a date from today onwards.');
+          this.value = today; // Reset the input value to today's date
+      }
+  });
+
+
+  const maxSeatsPerTimeSlot = 30;
+
+    document.querySelector('input[name="num_of_persons"]').addEventListener('input', function() {
+        validateBooking();
+    });
+
+    function validateBooking() {
+        const numPersons = parseInt(document.querySelector('input[name="num_of_persons"]').value, 10);
+        const availableSeats = parseInt(document.getElementById('available_seats').textContent.split(' ')[2], 10);
+
+        if (numPersons > availableSeats) {
+            document.getElementById('error_message').textContent = 'Number of persons exceeds the remaining seats.';
+        } else {
+            document.getElementById('error_message').textContent = '';
+        }
+    }
+
+    function populateTimeSlots() {
+      var timeSlotSelect = document.getElementById("time_slot");
+      var reservationDateInput = document.getElementById("reservation_date");
+      var selectedDate = new Date(reservationDateInput.value);
+      var today = new Date();
+  
+      // Define the start and end hours for time slots
+      var startHour, endHour;
+  
+      // Check if the selected date is today or later
+      if (selectedDate > today) {
+          startHour = 9; // Start from 9 AM
+          endHour = 22; // End at 10 PM
+      } else {
+          // If it's today's date, calculate the next hour
+          var currentHour = today.getHours();
+          startHour = currentHour < 22 ? currentHour + 1 : 22; // Start from the next hour or 10 PM
+          endHour = 22; // End at 10 PM
+      }
+  
+      // Clear existing options
+      timeSlotSelect.innerHTML = '<option value="" disabled selected>Select Time Slot</option>';
+  
+      for (var hour = startHour; hour <= endHour; hour++) {
+          var timeSlot = document.createElement("option");
+          var startTime = `${hour}:00`;
+          var endTime = `${(hour + 1) % 24}:00`;
+  
+          timeSlot.value = `${startTime} - ${endTime}`;
+          timeSlot.text = `${startTime} - ${endTime}`;
+  
+          timeSlotSelect.appendChild(timeSlot);
+      }
+  }
+  
+  // Call the function when the page loads and when the date input changes
+  populateTimeSlots();
+  
+  document.getElementById("reservation_date").addEventListener("change", populateTimeSlots);
+                                
+</script> {% endcomment %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+   document.getElementById("start-time").addEventListener("input", function () {
+    var selectedTime = this.value;
+    var selectedHour = parseInt(selectedTime.split(":")[0]);
+  
+    if (selectedHour >= 10 && selectedHour < 22) { // Only show end time if start time is between 10 AM and 10 PM
+      var startTime = new Date("1970-01-01 " + selectedTime);
+      var endTime = new Date(startTime.getTime() + 60 * 60 * 1000); // Add one hour
+      var endHour = endTime.getHours().toString().padStart(2, "0");
+      var endMinute = endTime.getMinutes().toString().padStart(2, "0");
+      document.getElementById("end-time").value = endHour + ":" + endMinute;
+      document.getElementById("end-time").readOnly = false;
+    } else {
+      document.getElementById("end-time").value = "";
+      document.getElementById("end-time").readOnly = true;
+    }
+  }); 
+
+  // Get a reference to the date input field by its ID
+  var reservationDateInput = document.getElementById('reservation_date');
+
+  // Get today's date
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth() + 1; // January is 0
+  var yyyy = today.getFullYear();
+
+  // Format today's date as "YYYY-MM-DD"
+  if (dd < 10) {
+      dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+      mm = '0' + mm;
+  }
+
+  today = yyyy + '-' + mm + '-' + dd;
+
+  // Set the minimum date attribute to today
+  reservationDateInput.min = today;
+
+  // Add an event listener for date input changes
+  reservationDateInput.addEventListener('change', function () {
+      var selectedDate = new Date(this.value);
+      if (selectedDate < today) {
+          alert('Please select a date from today onwards.');
+          this.value = today; // Reset the input value to today's date
+      }
+  });
+
+
+ document.getElementById("start-time").addEventListener("input", function() {
+    var selectedTime = this.value;
+    var selectedHour = parseInt(selectedTime.split(":")[0]);
+  
+    // Check if the selected time is within the valid range (10 AM to 11 PM)
+    if (selectedHour < 10 || selectedHour >= 22) {
+      alert("Please select a time between 10 AM and 10 PM.");
+      this.value = " "; // Reset to the default time (10 AM)
+    }
+  }); 
+
+
+  document.getElementById("start-time").addEventListener("change", function() {
+    var selectedStartTime = new Date("1970-01-01T" + this.value);
+    var allowedStartTime = new Date("1970-01-01T10:00");
+    var allowedEndTime = new Date("1970-01-01T23:00");
+    var now = new Date();
+
+    // Check if the selected start time is within the allowed range
+    if (selectedStartTime >= allowedStartTime && selectedStartTime <= allowedEndTime) {
+      // Check if the selected start time is after the existing booking
+      var existingEndTime = new Date("1970-01-01T11:59");  // Replace with the actual existing end time
+      var existingBookingStatus = 0;  // Replace with the actual status of the existing booking
+
+      // Check if the existing booking has status value as 0
+      if (existingBookingStatus === 0 && selectedStartTime < existingEndTime) {
+          // Display an error message
+          document.getElementById("error_message").textContent = "Table already booked. Next available time: 11:59 AM";
+          // Disable the form submission
+          document.querySelector("form").onsubmit = function(event) {
+              event.preventDefault();
+          };
+        } else {
+            // Clear the error message and enable form submission
+            document.getElementById("error_message").textContent = "";
+            document.querySelector("form").onsubmit = null;
+        }
+    } else {
+        // Display an error message
+        document.getElementById("error_message").textContent = "Please select a time between 10:00 AM and 11:00 PM";
+        // Disable the form submission
+        document.querySelector("form").onsubmit = function(event) {
+            event.preventDefault();
+        };
+    }
+});
+
+function updateSelectedMenuItems(checkbox) {
+  var menuItemId = checkbox.value;
+  var menuItemContainer = checkbox.closest('.menu-item');
+  var menuItemName = menuItemContainer.querySelector('h4').textContent;
+  var menuItemPrice = menuItemContainer.querySelector('p').textContent;
+  var menuItemQuantity = menuItemContainer.querySelector('.menu-item-quantity').value;
+  
+  if (checkbox.checked) {
+      var existingItems = document.getElementById('selected-menu-items').value;
+      var newItem = menuItemName + ' - ' + menuItemPrice + ' x ' + menuItemQuantity;
+      if (existingItems.trim() === '') {
+          document.getElementById('selected-menu-items').value = newItem;
+      } else {
+          document.getElementById('selected-menu-items').value = existingItems + '\n' + newItem;
+      }
+  } else {
+      var regex = new RegExp(menuItemName + ' - ' + menuItemPrice + ' x ' + menuItemQuantity + '\n?', 'g');
+      document.getElementById('selected-menu-items').value = document.getElementById('selected-menu-items').value.replace(regex, '');
+  }
+}
+
+// Add event listeners to quantity input fields
+var quantityInputs = document.querySelectorAll('.menu-item-quantity');
+quantityInputs.forEach(function(input) {
+  input.addEventListener('input', function() {
+      var menuItemId = this.name.replace('menu_item_quantity_', '');
+      var menuItemContainer = this.closest('.menu-item');
+      var menuItemName = menuItemContainer.querySelector('h4').textContent;
+      var menuItemPrice = menuItemContainer.querySelector('p').textContent;
+      var newQuantity = this.value;
+
+      var existingItems = document.getElementById('selected-menu-items').value;
+      var regex = new RegExp(menuItemName + ' - ' + menuItemPrice + ' x \\d+', 'g');
+      var newItem = menuItemName + ' - ' + menuItemPrice + ' x ' + newQuantity;
+      if (existingItems.trim() === '') {
+          document.getElementById('selected-menu-items').value = newItem;
+      } else {
+          document.getElementById('selected-menu-items').value = existingItems.replace(regex, newItem);
+      }
+  });
+});
+
+  </script>
+
+</body>
+
+
+</html>

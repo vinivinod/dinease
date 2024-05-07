@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            padding: 20px;
+            width: 350px;
+            height:400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="password"] {
+            width: 250px;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Change Password</h2>
+        <form method="post">
+            {% csrf_token %}
+            <div>
+                <label for="id_old_password">Old Password:</label>
+                <input type="password" name="old_password" id="id_old_password" required>
+            </div><br>
+            <div>
+                <label for="id_new_password1">New Password:</label>
+                <input type="password" name="new_password1" id="id_new_password1" required><br>
+                <small id="passwordValidationMessage1" style="color: red;"></small>
+            </div><br>
+            <div>
+                <label for="id_new_password2">Confirm New Password:</label>
+                <input type="password" name="new_password2" id="id_new_password2" required><br>
+                <small id="passwordValidationMessage2" style="color: red;"></small>
+            </div><br>
+            <button type="submit">Change Password</button>
+        </form>
+        <!-- Display error messages here if needed -->
+    </div>
+    <script>
+        const passwordInput1 = document.getElementById("id_new_password1");
+        const passwordInput2 = document.getElementById("id_new_password2");
+        const passwordValidationMessage1 = document.getElementById("passwordValidationMessage1");
+        const passwordValidationMessage2 = document.getElementById("passwordValidationMessage2");
+
+        function validatePassword(passwordInput, passwordValidationMessage) {
+            const password = passwordInput.value;
+            const passwordPattern = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+            if (passwordPattern.test(password)) {
+                passwordValidationMessage.textContent = "";
+            } else {
+                passwordValidationMessage.textContent = "Password must contain at least 8 characters with one uppercase letter, one lowercase letter, one number, and one special character.";
+            }
+        }
+
+        passwordInput1.addEventListener("input", () => {
+            validatePassword(passwordInput1, passwordValidationMessage1);
+        });
+
+        passwordInput2.addEventListener("input", () => {
+            validatePassword(passwordInput2, passwordValidationMessage2);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products by Category - {{ category_name }}</title>
+</head>
+<body>
+    <h1>Products in Category: {{ category_name }}</h1>
+
+    <ul>
+        {% for product in products %}
+            <li>
+                <h2>{{ product.name }}</h2>
+                <p>Category: {{ product.category }}</p>
+                <p>Description: {{ product.description }}</p>
+                <p>Price: {{ product.price }}</p>
+            </li>
+        {% empty %}
+            <p>No products found in this category.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

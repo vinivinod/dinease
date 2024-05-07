@@ -1,0 +1,11 @@
+<!-- partial_template.html -->
+{% for item in filtered_items %}
+    <div class="menu-item">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.desc }}</p>
+        <p>Price: ${{ item.price }}</p>
+        <!-- Add other item details as needed -->
+    </div>
+{% empty %}
+    <p>No items found.</p>
+{% endfor %}

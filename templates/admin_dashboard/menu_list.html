@@ -1,0 +1,30 @@
+{% load static %}
+{% block content %}
+<div class="container">
+    <h2>Menu List</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Item name</th>
+                <th>Main Category</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for menu_item in menu_items %}
+            <tr>
+                <td>{{ menu_item.id }}</td>
+                <td>{{ menu_item.name }}</td>
+                <td>{{ menu_item.category }}</td>
+                <td>${{ menu_item.price }}</td>
+                <td>{{ menu_item.desc }}</td>
+                <td><img src="{{ menu_item.img.url }}" alt="{{ menu_item.name }}" width="100"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

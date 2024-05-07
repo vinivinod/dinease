@@ -1,0 +1,186 @@
+{% comment %} {% extends 'main/header.html' %} {% endcomment %}
+{% load static %}
+{% comment %} {% load crispy_forms_tags %}  {% endcomment %}
+{% load socialaccount %}
+{% comment %} {% load allauth %} {% endcomment %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Form with Google Sign-in</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .image-container {
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  }
+  .image-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh;">
+      <div class="col-md-6">
+        <div class="container form-container">
+          <h1 class="text-center">Login</h1>
+          <form id="loginForm" method="POST" action="{% url 'login-submit' %}">
+              {% csrf_token %}
+            <div class="form-group">
+              <label >Email:</label>
+              <input type="text" class="form-control"  name="email" id="email" required>
+              <small  class="form-text text-danger"></small>
+              {% comment %} {{ form|crispy }} {% endcomment %}
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control"  name="password" id="password" required>
+              <small  class="form-text text-danger"></small>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block" id="login_submit" >Login</button>
+            {% comment %} <button type="button" id="login" class="btn btn-danger btn-block mt-3" onclick="signInWithGoogle()">Login with Google</button> {% endcomment %}
+
+            {% comment %} <div class="text-center mt-3">
+              <a href="forgot-password.html">Forgot Password?</a>
+            </div> {% endcomment %}
+            {% comment %} <button class="btn btn-danger btn-block mt-3" onclick="signInWithGoogle()"></button> {% endcomment %}
+            {% comment %} <a href="{% provider_login_url 'google' %}?next=/"> {% endcomment %}
+               {% comment %} <span class="align-middle">
+                <img src="https://lh5.googleusercontent.com/proxy/IGWMSvJWdIuu_VVsDb8ZQLhoky-AYRdRDAAu3ZNswi0TO6itSA9ZlVvvMkcQjuFKQToFFddpAd9we9iXZffsyE6P49rURNurGlqiCMn5opaITsvCMGmsaltXnLF47SPR8APPfDKL7duegmk9osSbmiVLr4qrQphNozHF-dIp_L0-oG05JI29HhO0_yoNIlmAlCFq7d3W_43ku4XebWpOn6luu5fnZim0N8qgR4ds9vlPr_Ij4b5Yt-NVrA" alt="Google Icon" width="24" height="24">
+              </span>
+              <span class="align-middle ml-2">Login in with Google</span> {% endcomment %}
+            </a>
+          </form>
+          <div class="text-center mt-3">
+            Don't you have an account? <a href="{% url 'register' %}">Sign up here</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="https://img.freepik.com/free-photo/funny-3d-illustration-cartoon-teenage-girl_183364-80139.jpg?size=626&ext=jpg&ga=GA1.2.932815950.1691127966&semt=ais" alt="Image" class="img-fluid">
+      </div>
+    </div>
+  </div>
+  {% endblock %} 
+  <!-- Add Bootstrap JS and jQuery scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
+    {% comment %} function validateUsername() {
+      const usernameValue = usernameInput.value;
+      const usernameError = document.getElementById('usernameError');
+      
+      if (!/^[a-zA-Z]+$/.test(usernameValue)) {
+        usernameError.textContent = 'Username should contain only alphabetical characters.';
+        return false;
+      } else {
+        usernameError.textContent = '';
+        return true;
+      }
+    } {% endcomment %}
+
+    function validateEmail() {
+      const emailValue = emailInput.value;
+      const emailError = document.getElementById('emailError');
+      
+      if (!/^\S+@\S+\.\S+$/.test(emailValue)) {
+        emailError.textContent = 'Enter a valid email address.';
+        return false;
+      } else {
+        emailError.textContent = '';
+        return true;
+      }
+    }
+
+    function validatePassword() {
+      const passwordValue = passwordInput.value;
+      const passwordError = document.getElementById('passwordError');
+      
+      if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(passwordValue)) {
+        passwordError.textContent = 'Password should contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.';
+        return false;
+      } else {
+        passwordError.textContent = '';
+        return true;
+      }
+    }
+
+    // Validate on keyup for the email and password fields
+    {% comment %} usernameInput.addEventListener('keyup', validateUsername); {% endcomment %}
+    emailInput.addEventListener('keyup', validateEmail);
+    passwordInput.addEventListener('keyup', validatePassword);
+
+    // Validate on form submit
+    loginForm.addEventListener('submit', function(event) {
+      {% comment %} const isUsernameValid = validateUsername(); {% endcomment %}
+      const isEmailValid = validateEmail();
+      const isPasswordValid = validatePassword();
+
+      if (!isEmailValid || !isPasswordValid) {
+        event.preventDefault();
+      }
+    });
+
+    // Function to handle "Sign in with Google" button
+    function signInWithGoogle() {
+      // Implement the Google sign-in functionality here
+      // You can redirect the user to Google's OAuth sign-in page or perform other actions
+    }
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBRtXVHEB_ip7extEIWCon92h3tY3z29Zg",
+      authDomain: "miniproject-4ce21.firebaseapp.com",
+      projectId: "miniproject-4ce21",
+      storageBucket: "miniproject-4ce21.appspot.com",
+      messagingSenderId: "83259191038",
+      appId: "1:83259191038:web:3cbd77f440e76b75f4bfaf"
+    };
+  
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    const provider=new GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+
+    $("#login").on("click",function(){
+      signInWithPopup(auth, provider)
+        .then((result) => {
+          const user = result.user;
+          $('#name').html(user.displayName)
+          $('#email').html(user.email)
+          $('#img').attr('src',user.photoURL)
+        }).catch((error) => {
+          console.log(error);
+        });
+    })
+  </script>
+</body>
+</html>

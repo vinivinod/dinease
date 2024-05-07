@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Admin Login</title>
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    
+    .login-container {
+        background-color: #fff;
+        max-width: 400px;
+        margin: 100px auto;
+        padding: 50px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        font-weight: bold;
+    }
+    
+    input {
+        width: 90%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    
+    button {
+        display: block;
+        width: 95%;
+        padding: 10px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+    
+    button:hover {
+        background-color: #2980b9;
+    }
+    
+    .error-message {
+        color: red;
+        font-size: 0.8em;
+        display: block;
+        margin-top: 5px;
+    }
+</style>
+<body>
+    <div class="login-container">
+        <h2>Admin Login</h2>
+        
+        <form id="login-form" method="post" autocomplete="off" action="{% url 'admin_index' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <span class="error-message" id="email-error"></span>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <span class="error-message" id="password-error"></span>
+            </div>
+            <button type="submit" class="nav-link-button" id="Adlogin_btn">Login</button>
+        </form>
+    </div>
+    
+    
+
+
+    <script>
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const emailError = document.getElementById("email-error");
+    const passwordError = document.getElementById("password-error");
+    const loginForm = document.getElementById("login-form");
+
+    emailInput.addEventListener("keyup", validateEmail);
+    passwordInput.addEventListener("keyup", validatePassword);
+    loginForm.addEventListener("submit", onSubmit);
+
+   
+    function validateEmail() {
+        const emailValue = emailInput.value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!emailPattern.test(emailValue)) {
+            emailError.textContent = "Enter a valid email address";
+        } else {
+            emailError.textContent = "";
+        }
+        validateAndEnableSubmitButton();
+    }
+
+    function validatePassword() {
+        const passwordValue = passwordInput.value;
+
+        // Password must be at least 8 characters
+        if (passwordValue.length < 8) {
+            passwordError.textContent = "Password must be at least 8 characters";
+        }
+        // Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character
+        else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}/.test(passwordValue)) {
+            passwordError.textContent = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character";
+        } else {
+            passwordError.textContent = "";
+        }
+        validateAndEnableSubmitButton();
+    }
+
+    function validateAndEnableSubmitButton() {
+        const emailErrorText = emailError.textContent;
+        const passwordErrorText = passwordError.textContent;
+
+        if (emailErrorText || passwordErrorText || !checkPredefinedValues()) {
+            loginForm.querySelector("button[type='submit']").disabled = true;
+        } else {
+            loginForm.querySelector("button[type='submit']").disabled = false;
+        }
+    }
+
+    function checkPredefinedValues() {
+        const predefinedEmail = "admin@gmail.com";
+        const predefinedPassword = "Admin@123";
+
+        return emailInput.value === predefinedEmail && passwordInput.value === predefinedPassword;
+    }
+
+    function onSubmit(event) {
+        if (!checkPredefinedValues()) {
+            event.preventDefault();
+            alert("Invalid email or password. Please check your credentials.");
+        }
+    }
+
+    // Initial call to enable or disable the submit button based on the initial state
+    validateAndEnableSubmitButton();
+</script>
+
+</body>
+</html>

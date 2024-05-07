@@ -1,0 +1,41 @@
+{% extends 'menumore.html' %}
+
+{% block content %}
+
+  <div class="menu-list row">
+    {% if filtered_menus %}
+        {% for menu in filtered_menus %}
+        &ensp;&ensp;
+    <div class=" col-lg-4 col-md-4 col-sm-6 all {{ menu_item.category }}" style="text-align: left; padding-left: 10px; margin-left: -50px; margin-bottom: 20px;">
+      <div class="box" style="height: 450px; width:340px; margin: 35px;">
+      <div>
+          <div class="img-box" >
+              <img src="{{ menu.img.url }}" alt="" >
+          </div>
+          <div class="detail-box">
+              <h5>
+                  {{ menu.name }}
+              </h5>
+              <p>
+              {{ menu.desc }}  
+              </p>
+              <div class="options">
+                  <h6>
+                  Rs. {{ menu.price }}
+                  </h6>
+                  <div class="button-container">
+                    <a href="{% url 'add_to_cart' menu.id %}">
+                      <i class="fa fa-cart-plus" aria-hidden="true" style="color: black;"></i>
+                  </a>
+                  </div> 
+              </div>
+          </div>
+        </div>
+      </div>
+  </div>&ensp;&ensp;&ensp;&ensp;&ensp;
+  {% endfor %}
+    {% else %}
+      <p>No menus found for the selected criteria.</p>
+    {% endif %}
+  </div>
+{% endblock %}

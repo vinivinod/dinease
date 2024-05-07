@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Table Data</title>
+</head>
+<body>
+    <h1>Add Table Data</h1>
+    <form method="post" action="{% url 'add_table' %}">
+        {% csrf_token %}
+        <label for="tab_id">Tab ID:</label>
+        <input type="text" name="tab_id" required><br><br>
+
+        <label for="desc">Description:</label>
+        <input type="text" name="desc" required><br><br>
+
+        <input type="submit" value="Add Data">
+    </form>
+</body>
+</html>

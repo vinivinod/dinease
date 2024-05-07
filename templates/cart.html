@@ -1,0 +1,385 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+
+    <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+
+    <title>Shopping Cart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin: 20px 0;
+            color: #333;
+        }
+        .cart {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            max-width: 600px;
+            width: 100%;
+            margin: 20px;
+        }
+        .product {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            padding: 15px;
+        }
+        .product img {
+            max-width: 100px;
+            max-height: 100px;
+            margin-right: 20px;
+        }
+        .product-details {
+            flex: 1;
+        }
+        .product-name {
+            font-size: 1.2em;
+            color: #333;
+        }
+        .product-price {
+            color: #FF5733;
+            font-size: 1.2em;
+        }
+        .product-quantity {
+            font-size: 1.2em;
+        }
+        .product-total {
+            font-size: 1.2em;
+            margin-top:30px;
+            font-weight: bold;
+        }
+        #total-amount {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            text-align: right;
+        }
+        .quantity-input {
+            width: 50px;
+            height:20px;
+            padding: 5px;
+            margin-top:25px;
+            text-align: center;
+        }
+        #add-more-items {
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 20px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #add-more-items:hover {
+            background-color: #00587A;
+        }
+        .remove-button {
+            background-color: #d11f1f; /* Red background color */
+            color: #fff; /* White text color */
+            border: none;
+            padding: 5px 10px;
+            margin-top:30px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .remove-button:hover {
+            background-color: #FF3333; /* Darker red on hover */
+        }
+
+        #checkout {
+            background-color: #008CBA;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #checkout:hover {
+            background-color: #00587A;
+        }
+        .quantity-dropdown {
+            width: 50px; /* Set the desired width */
+            height:30px;
+            margin-top:25px;
+            padding: 5px; /* Add some padding for better appearance */
+            border: 1px solid #ccc; /* Add a border */
+            border-radius: 5px; /* Add rounded corners */
+            font-size: 16px; /* Set the font size */
+        }
+    
+        /* Style the dropdown options */
+        .quantity-dropdown option {
+            font-size: 16px; /* Set the font size for options */
+        }
+        .hero {
+            height: 100px;
+            width:100%;
+            background-color:black;
+          }
+          .cart_link {
+            color: #ffc400;
+          }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand" href="{% url '' %}">
+                <span>
+                  DineEase
+                </span>
+              </a>
+    
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""> </span>
+              </button>
+    
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  mx-auto ">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url '' %}">Home </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'menu' %}">Menu </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                  </li>
+                  <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'add_reservation' %}">Book Table</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'booking_list'  %}">Bookings </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'orders_lists' %}">Orders </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'loggout' %}">Logout</a>
+                       </li>
+                       <a href="#" class="nav-item nav-link" style="color: white; font-weight: bold;">Welcome, {{user.name}}
+                    {% else %}
+                      <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                  </li>
+                  </ul>
+                <div class="user_option">
+                  {% comment %} <a href="" class="user_link">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  </a> {% endcomment %}
+                  <a class="cart_link" href="{% url 'cart' %}">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                      <g>
+                        <g>
+                          <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                       c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                       C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                       c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                       C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                       c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                        </g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                    </svg>
+                  </a>
+                  {% comment %} <form class="form-inline">
+                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                  </form> 
+                  <a href="" class="order_online">
+                    Order Online
+                  </a>{% endcomment %}
+                </div>
+              </div>
+            </nav>
+          </div>
+        </header>
+        <!-- end header section -->
+      </div>
+      <h1>Your Shopping Cart</h1>
+      <div class="cart">
+        {% for item in cart_items %}
+            {% comment %} {% if item.status == 1 %} {% endcomment %}
+            <div class="product">
+                <img src="{{ item.menu.img.url }}" alt="{{ item.menu.name }}">
+                <div class="product-details">
+                    <div class="product-name">{{ item.menu.name }}</div>
+                    <div class="product-price">₹{{ item.menu.price }}</div>
+                </div>
+                <select class="quantity-dropdown" data-item-id="{{ item.id }}">
+                  {% for quantity in item.quantity_range %}
+                      <option value="{{ quantity }}" {% if item.quantity == quantity %}selected{% endif %}>{{ quantity }}</option>
+                  {% endfor %}
+              </select>&ensp;
+                <div class="product-total">₹{{ item.product_total|floatformat:2 }}</div>&ensp;
+                <a href="{% url 'remove_from_cart' item.id %}">
+                    <button class="remove-button">Remove</button>
+                </a>
+            </div>
+            {% comment %} {% endif %} {% endcomment %}
+        {% endfor %}
+        <div id="total-amount">Total Amount: ₹{{ total_price }}</div>
+        <div class="button-container">
+            <a href="{% url 'menu' %}">
+                <button id="add-more-items">Add More Items</button>
+            </a>
+            {% if at_least_one_item_with_status_1 %}
+        <a href="{% url 'checkout' %}">
+            <button id="checkout">Place Order</button>
+        </a>
+        {% endif %}
+        </div>
+    </div>
+    
+  
+    
+    <script>
+        function updateProductTotal(product) {
+            const price = parseFloat(product.querySelector('.product-price').textContent.replace('₹', ''));
+            const quantityInput = product.querySelector('.quantity-dropdown');
+            const newQuantity = parseFloat(quantityInput.value);
+            const total = price * newQuantity;
+            product.querySelector('.product-total').textContent = `₹${total.toFixed(2)}`;
+            return total;
+        }
+    
+        function updateTotalAmount() {
+            const products = document.querySelectorAll('.product');
+            let totalAmount = 0;
+            products.forEach(product => {
+                totalAmount += updateProductTotal(product);
+            });
+            document.getElementById('total-amount').textContent = `Total Amount: ₹${totalAmount.toFixed(2)}`;
+        }
+    
+        const quantityInputs = document.querySelectorAll('.quantity-dropdown');
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', updateTotalAmount);
+        });
+    
+        
+        $(document).ready(function() {
+            $('.quantity-dropdown').change(function() {
+                const itemID = $(this).data('item-id');
+                const newQuantity = $(this).val();
+                updateQuantity(itemID, newQuantity);
+            });
+    
+            function updateQuantity(itemID, newQuantity) {
+                $.ajax({
+                    url: `/update_cart_item_quantity/${itemID}/${newQuantity}/`,
+                    method: 'POST',
+                    data: {
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success: function(data) {
+                        // Handle success (if needed)
+                        updateTotalAmount();
+                    },
+                    error: function() {
+                        // Handle errors (if needed)
+                    }
+                });
+            }
+            // Your existing code for updating total amounts
+        });
+    </script>
+    
+    {% comment %} <script>
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        quantityInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                const itemID = input.getAttribute('data-item-id');
+                const newQuantity = input.value;
+                window.location.href = `{% url 'update_cart_item_quantity' 0 0 %}`.replace('0', itemID).replace('0', newQuantity);
+            });
+        });
+    </script> {% endcomment %}
+</body>
+</html>

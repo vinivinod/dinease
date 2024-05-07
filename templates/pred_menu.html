@@ -1,0 +1,42 @@
+{% extends 'menumore.html' %}
+
+{% block content %}
+  <div class="menu-list row">
+    {% if matched_menus %}
+      {% for menu_item in matched_menus %}
+        {% if menu_item.active %}
+          <div class="col-sm-6 col-lg-4 all {{ menu_item.category }}">
+            <div class="box" style="height: 440px;">
+              <div>
+                <div class="img-box">
+                  <img src="{{ menu_item.img.url }}" alt="">
+                </div>
+                <div class="detail-box">
+                  <h5>{{ menu_item.name }}</h5>
+                  <p>{{ menu_item.desc }}</p>
+                  <div class="options">
+                    <h6>Rs. {{ menu_item.price }}</h6>
+                    <div class="button-container">
+                      &ensp;
+                      <a href="{% url 'add_to_cart' menu_item.id %}">
+                        <i class="fa fa-cart-plus" aria-hidden="true" style="color: black;"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      <div class="no-matched-food">
+        {% if message %}
+          <p>{{ message }}</p>
+        {% else %}
+          <p>Food is not available for this prediction.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}

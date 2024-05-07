@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Reservation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select,
+        input[type="date"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        /* Add this to your CSS file */
+        .btn-cancel {
+            background-color: grey; /* Background color for the cancel button */
+            color: #333; /* Text color */
+            font-weight:bold;
+            border: 1px solid #999; /* Border color */
+            padding: 8px 16px; /* Padding around the button text */
+            text-decoration: none; /* Remove underline for links */
+            border-radius: 4px; /* Rounded corners */
+            transition: background-color 0.3s ease; /* Smooth transition on hover */
+            margin-right: 10px; /* Add some margin to separate it from the submit button */
+        }
+
+        .btn-cancel:hover {
+            background-color: #999; /* Change background color on hover */
+            color: #fff; /* Change text color on hover */
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Reservation</h1>
+        <form method="post" action="{% url 'edit_reservation' booking.reservation_id %}">
+            {% csrf_token %}
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="{{ booking.name }}" required>
+    
+            <label for="phone">Phone:</label>
+            <input type="text" id="phone" name="phone" value="{{ booking.phone }}" required>
+    
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ booking.email }}" required>
+    
+            <label for="num_of_persons">Number of Persons:</label>
+            <input type="number" id="num_of_persons" name="num_of_persons" value="{{ booking.num_of_persons }}" required>
+    
+            <label for="table_id">Table Number:</label>
+            <select id="table_id" name="table_id">
+                <option value="" disabled>Select Table Number</option>
+                {% for table_number in table_numbers %}
+                    <option value="{{ table_number }}" {% if booking.table_id.tab_id == table_number %}selected{% endif %}>
+                        {{ table_number }}
+                    </option>
+                {% endfor %}
+            </select> 
+    
+            <label for="time_slot">Time Slot:</label>
+            <select id="time_slot" name="time_slot">
+                <option value="" disabled{% if not initial_time_slot %} selected{% endif %}>Select Time Slot</option>
+                {% for time_slot_option in all_time_slots %}
+                    <option value="{{ time_slot_option }}" {% if initial_time_slot and initial_time_slot == time_slot_option %}selected{% endif %}>
+                        {{ time_slot_option }}
+                    </option>
+                {% endfor %}
+            </select>
+            
+
+            <label for="reservation_date">Reservation Date:</label>
+            <input type="date" id="reservation_date" name="reservation_date" value="{{ booking.reservation_date|date:'Y-m-d' }}" required>
+    
+            <button type="submit"><i class="far fa-save"></i> Update Reservation</button><br>
+    
+            <a href="{% url 'booking_confirm' %}" class="btn btn-cancel"><i class="fas fa-arrow-left"></i> Cancel</a>
+        </form>
+    </div>
+    
+    <script>
+        // Get a reference to the date input field by its ID
+        var reservationDateInput = document.getElementById('reservation_date');
+    
+        // Get today's date
+        var today = new Date();
+        var dd = today.getDate();
+        var mm = today.getMonth() + 1; // January is 0
+        var yyyy = today.getFullYear();
+    
+        // Format today's date as "YYYY-MM-DD"
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+    
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+    
+        today = yyyy + '-' + mm + '-' + dd;
+    
+        // Set the minimum date attribute to today
+        reservationDateInput.min = today;
+    
+        // Add an event listener for date input changes
+        reservationDateInput.addEventListener('change', function () {
+            var selectedDate = new Date(this.value);
+            if (selectedDate < today) {
+                alert('Please select a date from today onwards.');
+                this.value = today; // Reset the input value to today's date
+            }
+        });
+    </script>
+    
+</body>
+</html>

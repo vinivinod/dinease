@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Bill</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+
+        p {
+            margin: 5px 0;
+        }
+
+        .bill-details {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .total-section {
+            margin-top: 20px;
+        }
+
+        .total-label {
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .total-amount {
+            font-size: 18px;
+            color: #27ae60;
+        }
+
+        .not-paid {
+            color: #e74c3c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Booking Bill</h1>
+
+    <div class="bill-details">
+        <p><strong>Booking Date:</strong> {{ booking.date }}</p>
+        <p><strong>Start Time:</strong> {{ booking.start_time }}</p>
+        <p><strong>End Time:</strong> {{ booking.end_time }}</p>
+        <p><strong>Table Name:</strong> {{ booking.table_name }}</p>
+        <p><strong>Selected Items:</strong> {{ booking.selected_items|default:"None" }}</p>
+        <p><strong>Total Price:</strong> ₹{{ booking.total_price }}</p>
+        <p><strong>Payment Status:</strong> <span class="{{ 'not-paid' if not booking.payments.first else '' }}">{{ booking.payments.first.payment_status|default:"Not Paid" }}</span></p>
+    </div>
+
+    <div class="total-section">
+        <p class="total-label">Total Amount:</p>
+        <p class="total-amount">₹{{ booking.total_price }}</p>
+    </div>
+</body>
+</html>

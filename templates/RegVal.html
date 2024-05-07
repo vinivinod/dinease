@@ -1,0 +1,195 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Reg Validation</title>
+  <!-- Add Bootstrap CSS link -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    /* Your existing styles */
+  </style>
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-6 image-container">
+        <img src="https://img.freepik.com/free-photo/3d-illustration-medieval-historical-character_183364-80140.jpg?size=626&ext=jpg&ga=GA1.2.932815950.1691127966&semt=ais" alt="Image">
+      </div>
+      <div class="col-md-6">
+        <div class="container form-container mt-5">
+          <h1>Registration Form</h1>
+          <form action="#" method="post" id="registrationForm">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="username">Name:</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+              <small id="usernameError" class="form-text text-danger"></small>
+            </div>
+            {% comment %} <div class="form-group">
+              <label for="username">Last Name:</label>
+              <input type="text" class="form-control" id="username" name="lname" required>
+              <small id="usernameError" class="form-text text-danger"></small>
+            </div>  
+            <div class="form-group">
+              <label for="username">Username:</label>
+              <input type="text" class="form-control" id="username" name="username" required>
+              <small id="usernameError" class="form-text text-danger"></small>
+            </div> {% endcomment %}
+            <div class="form-group">
+              <label for="email">E-mail:</label>
+              <input type="email" class="form-control" id="email" name="email" required>
+              <small id="emailError" class="form-text text-danger"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="phoneNumber">Phone Number:</label>
+              <input type="tel" class="form-control" id="phone" name="phone" required>
+              <small id="phoneNumberError" class="form-text text-danger"></small>
+            </div> 
+
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" class="form-control" id="password" name="password" required>
+              <small id="passwordError" class="form-text text-danger"></small>
+            </div>
+
+            <div class="form-group">
+              <label for="confirmPassword">Confirm Password:</label>
+              <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required>
+              <small id="confirmPasswordError" class="form-text text-danger"></small>
+            </div>
+            <div class="text-center mt-3">
+              Already have an account? <a href="{% url 'login' %}">Login</a>
+            </div>
+            <button type="submit" class="btn btn-primary" >Register</button>
+            <a href="{% url 'login' %}">
+            {% comment %} <button class="btn btn-danger btn-block mt-3" onclick="signInWithGoogle()"></button> {% endcomment %}
+            {% comment %} <a href="{% provider_login_url 'google' %}?next=/"> {% endcomment %}
+               <span class="align-middle">
+                <img src="https://lh5.googleusercontent.com/proxy/IGWMSvJWdIuu_VVsDb8ZQLhoky-AYRdRDAAu3ZNswi0TO6itSA9ZlVvvMkcQjuFKQToFFddpAd9we9iXZffsyE6P49rURNurGlqiCMn5opaITsvCMGmsaltXnLF47SPR8APPfDKL7duegmk9osSbmiVLr4qrQphNozHF-dIp_L0-oG05JI29HhO0_yoNIlmAlCFq7d3W_43ku4XebWpOn6luu5fnZim0N8qgR4ds9vlPr_Ij4b5Yt-NVrA" alt="Google Icon" width="24" height="24">
+              </span>
+              <span class="align-middle ml-2">Sign in with Google</span>
+            </a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Bootstrap JS and jQuery scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  <script >
+   
+    const registrationForm = document.getElementById('registrationForm');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    {% comment %} const phoneNumberInput = document.getElementById('phoneNumber'); {% endcomment %}
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+
+    function validateUsername() {
+      const usernameInput = document.getElementById('username');
+      const usernameValue = usernameInput.value;
+      const usernameError = document.getElementById('usernameError');
+      
+      // Capitalize the first letter of the name
+      const capitalizedUsername = usernameValue.charAt(0).toUpperCase() + usernameValue.slice(1);
+      usernameInput.value = capitalizedUsername;
+    
+      if (!/^[a-zA-Z]+$/.test(capitalizedUsername)) {
+        usernameError.textContent = 'Username should contain only alphabetical characters.';
+        return false;
+      } else {
+        usernameError.textContent = '';
+        return true;
+      }
+    }
+    
+
+    function validateEmail() {
+      const emailValue = emailInput.value;
+      const emailError = document.getElementById('emailError');
+      
+      if (!/^\S+@\S+\.\S+$/.test(emailValue)) {
+        emailError.textContent = 'Enter a valid email address.';
+        return false;
+      } else {
+        emailError.textContent = '';
+        return true;
+      }
+    }
+
+    function validatePhoneNumber() {
+      const phoneNumberValue = phoneNumberInput.value;
+      const phoneNumberError = document.getElementById('phoneNumberError');
+      
+      // Check if all 10 digits are the same
+      if (/^(\d)\1{9}$/.test(phoneNumberValue)) {
+        phoneNumberError.textContent = 'Phone number cannot have all digits the same.';
+        return false;
+      }
+      
+      // Check if the first digit is 7, 8, or 9, and the remaining are digits 0-9
+      if (!/^[789]\d{9}$/.test(phoneNumberValue)) {
+        phoneNumberError.textContent = 'Enter a valid Indian phone number (10 digits starting with 7, 8, or 9).';
+        return false;
+      } else {
+        phoneNumberError.textContent = '';
+        return true;
+      }
+    }
+    
+  
+    function validatePassword() {
+      const passwordValue = passwordInput.value;
+      const passwordError = document.getElementById('passwordError');
+      
+      if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}/.test(passwordValue)) {
+        passwordError.textContent = 'Password should contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character.';
+        return false;
+      } else {
+        passwordError.textContent = '';
+        return true;
+      }
+    }
+
+    function validateConfirmPassword() {
+      const confirmPasswordValue = confirmPasswordInput.value;
+      const confirmPasswordError = document.getElementById('confirmPasswordError');
+      
+      if (confirmPasswordValue !== passwordInput.value) {
+        confirmPasswordError.textContent = 'Passwords do not match.';
+        return false;
+      } else {
+        confirmPasswordError.textContent = '';
+        return true;
+      }
+    }
+
+    // Validate on keyup for individual fields
+    usernameInput.addEventListener('keyup', validateUsername);
+    emailInput.addEventListener('keyup', validateEmail);
+    {% comment %} phoneNumberInput.addEventListener('keyup', validatePhoneNumber); {% endcomment %}
+    passwordInput.addEventListener('keyup', validatePassword);
+    confirmPasswordInput.addEventListener('keyup', validateConfirmPassword);
+
+    // Validate on form submit
+    registrationForm.addEventListener('submit', function(event) {
+      const isUsernameValid = validateUsername();
+      const isEmailValid = validateEmail();
+      //const isPhoneNumberValid = validatePhoneNumber();
+      const isPasswordValid = validatePassword();
+      const isConfirmPasswordValid = validateConfirmPassword();
+
+      if (!isUsernameValid || !isEmailValid  || !isPasswordValid || !isConfirmPasswordValid) {
+        event.preventDefault();
+      }
+    });
+  
+  </script>
+</body>
+</html>

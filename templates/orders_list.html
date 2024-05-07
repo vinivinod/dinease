@@ -1,0 +1,500 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="shortcut icon" href="images/favicon.png" type="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-wsFVwOX+Li0FQK8xF3R5F83h9o/nG/HN8IK1Fk+dJwwN5I3tC2RR8iRSKbmcJ49e" crossorigin="anonymous">
+
+
+    <title> DineEase </title>
+
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="">
+
+    <!-- bootstrap core css -->
+  <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}" />
+
+  <!--owl slider stylesheet -->
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+  <!-- nice select  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+  <!-- font awesome style -->
+  <link href="{% static 'css/font-awesome.min.css' %}" rel="stylesheet" />
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+  <!-- responsive style -->
+  <link href="{% static 'css/responsive.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css">
+
+
+    <title>Booking Details</title>
+    <style>
+        {% comment %} /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+           background-color: #f7de97; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        } {% endcomment %}
+    
+        {% comment %} /* Navigation bar styles */
+        .navbar {
+            background-color: #000; /* Black background color */
+            width: 100%; /* Full width */
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+        }
+    
+        .navbar-brand {
+            font-weight: bold;
+            margin-left:30px;
+            font-size:30px;
+            color: #fff !important; /* White text color */
+        }
+    
+        .navbar-nav {
+            margin-left: auto; /* Move the navigation to the right side */
+            padding-right: 20px; /* Add some right padding to the right-aligned items */
+        }
+    
+        .nav-item {
+            margin-left: 20px; /* Add some spacing between the items */
+        }
+    
+        .nav-link {
+            color: #fff !important; /* White text color */
+            font-size: 20px; /* Increase text size */
+        } {% endcomment %}
+    
+        /* Container styles */
+        {% comment %} .container {
+            background-color: #fff;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 60px; /* Adjust the margin to create space below the navbar */
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        } {% endcomment %}
+    
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+    
+        /* Booking card styles */
+        .booking-card {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 0 0 20px 0;
+            box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+        }
+    
+        .booking-details {
+            margin-top: 10px;
+        }
+    
+        .booking-card strong {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    
+        /* Button styles */
+        .btn-primary {
+            display: inline-block;
+            padding: 7px 20px;
+            background-color: white;
+            color: Black;
+            text-decoration: none;
+            border-color: #007fff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .btn-primary2 {
+            display: inline-block;
+            padding: 7px 20px;
+            background-color: #007fff;
+            color: white;
+            text-decoration: none;
+            border-color: grey;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .btn-danger{
+            background-color: white;
+            color: Black;
+            border-color:red;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    
+        /* Footer styles */
+        p {
+            margin-top: 20px;
+        }
+        .hero{
+            height: 100px;
+            width:100%;
+            background-color:black;
+        }
+        .payment-status.paid {
+            color: green;
+        }
+        .payment-status.not-paid {
+            color: red; /* You can change 'red' to the desired color for not paid status */
+        }
+
+        .cancelled-row {
+          color: red;
+      }
+      .btn-success{
+        background-color: white;
+        border-color: grey;
+        color: black;
+        
+      }
+    </style>        
+    
+</head>
+<body>
+    <div class="hero">
+        <!-- header section strats -->
+        <header class="header_section">
+          <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+              <a class="navbar-brand" href="{% url '' %}">
+                <span>
+                  DineEase
+                </span>
+              </a>
+    
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class=""> </span>
+              </button>
+    
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav  mx-auto ">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url '' %}">Home </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'menu' %}">Menu </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                  </li>
+                  <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'add_reservation' %}">Book Table</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'booking_list'  %}">Bookings</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'orders_lists' %}">Orders </a>
+                      </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url 'loggout' %}">Logout</a>
+                       </li>
+                       <a href="#" class="nav-item nav-link" style="color: white; font-weight: bold;">Welcome, {{user.name}}
+                    {% else %}
+                      <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    {% endif %}
+                  </li>
+                  </ul>
+                <div class="user_option">
+                  {% comment %} <a href="" class="user_link">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                  </a> {% endcomment %}
+                  <a class="cart_link" href="{% url 'cart' %}">
+                    <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 456.029 456.029" style="enable-background:new 0 0 456.029 456.029;" xml:space="preserve">
+                      <g>
+                        <g>
+                          <path d="M345.6,338.862c-29.184,0-53.248,23.552-53.248,53.248c0,29.184,23.552,53.248,53.248,53.248
+                       c29.184,0,53.248-23.552,53.248-53.248C398.336,362.926,374.784,338.862,345.6,338.862z" />
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M439.296,84.91c-1.024,0-2.56-0.512-4.096-0.512H112.64l-5.12-34.304C104.448,27.566,84.992,10.67,61.952,10.67H20.48
+                       C9.216,10.67,0,19.886,0,31.15c0,11.264,9.216,20.48,20.48,20.48h41.472c2.56,0,4.608,2.048,5.12,4.608l31.744,216.064
+                       c4.096,27.136,27.648,47.616,55.296,47.616h212.992c26.624,0,49.664-18.944,55.296-45.056l33.28-166.4
+                       C457.728,97.71,450.56,86.958,439.296,84.91z" />
+                        </g>
+                      </g>
+                      <g>
+                        <g>
+                          <path d="M215.04,389.55c-1.024-28.16-24.576-50.688-52.736-50.688c-29.696,1.536-52.224,26.112-51.2,55.296
+                       c1.024,28.16,24.064,50.688,52.224,50.688h1.024C193.536,443.31,216.576,418.734,215.04,389.55z" />
+                        </g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                      <g>
+                      </g>
+                    </svg>
+                  </a>
+                  {% comment %} <form class="form-inline">
+                    <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                  </form> 
+                  <a href="" class="order_online">
+                    Order Online
+                  </a> {% endcomment %}
+                </div>
+              </div>
+            </nav>
+          </div>
+        </header>
+        <!-- end header section -->
+    </div>
+    <br><br><br>
+    
+    
+
+    <div class="container">
+      <h1 style="text-align:center; color:#f7be00; font-weight:bold">Order History</h1><br>
+  
+      {% if billing_info %}
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th>Date</th>
+                      <th>Item Names</th>
+                      <th>Amount</th>
+                      <th>Payment Status</th>
+                      <th>Status</th>
+                      <th>Invoice</th>
+                      <th>Review & Rating</th>  <!-- New column for Review Link -->
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for info in billing_info %}
+                      <tr class="{% if info.status == 0 %}cancelled-row{% endif %}">
+                          <td>
+                              {% for payment in payments %}
+                                  {% if payment.billing_info_id == info.id %}
+                                      {{ payment.timestamp|date:"Y-m-d" }}
+                                  {% endif %}
+                              {% endfor %}
+                          </td>
+                          <td>
+                              <ul>
+                                  {% for menu_item in info.menu.all %}
+                                      <li>{{ menu_item.name }}</li>
+                                  {% endfor %}
+                              </ul>
+                          </td>
+                          <td>₹ {{ info.amount }}</td>
+                          <td>
+                              {% for payment in payments %}
+                                  {% if payment.billing_info_id == info.id %}
+                                      {{ payment.get_payment_status_display }}
+                                  {% endif %}
+                              {% endfor %}
+                          </td>
+                          <td>
+                            {% if info.status == 1 %}
+                                {% if info.date == current_date %}
+                                    <form method="post" action="{% url 'cancel_order' info.id %}"
+                                          onsubmit="return confirmCancellation('{{ info.id }}')">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger"
+                                                style="background-color: #ff6347; color: #fff; padding: 8px 12px; border: none; border-radius: 4px; cursor: pointer;">Cancel</button>
+                                    </form>
+                                {% else %}
+                                    <!-- Show a message indicating that the order is not for the current date -->
+                                    
+                                {% endif %}
+                            {% else %}
+                                {% if info.status == 1 %}
+                                    <!-- Whatever logic you want to put for status 1 -->
+                                {% else %}
+                                    Cancelled
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                          <td>
+                              <form method="post" action="{% url 'download_pdf' info.id %}" target="_blank">
+                                  {% csrf_token %}
+                                  <button type="submit" class="btn btn-primary">Bill</button>
+                              </form>
+                          </td>
+                          <td>
+                            {% if info.status == 1 %}
+                                <!-- Show the review button only if the order has not been reviewed -->
+                                {% if info.id not in reviewed_orders %}
+                                    <a href="{% url 'review' order_id=info.id %}" class="btn btn-success" id="review_btn">Review</a>
+                                {% else %}
+                                    Submitted
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      {% else %}
+          <p>No orders available.</p>
+      {% endif %}
+  </div>
+  
+    
+    <script>
+      function confirmCancellation(orderId) {
+          var confirmation = confirm("Are you sure you want to cancel this order?");
+          if (confirmation) {
+              // If 'Yes' is clicked, update the status field
+              document.getElementById('cancelForm' + orderId).submit();
+          }
+          return false; // Prevent the form submission if 'No' is clicked
+      }
+      </script>
+
+    {% comment %} <script>
+        function confirmCancellation() {
+            if (confirm("Are you sure you want to cancel this booking?")) {
+                // User confirmed, submit the form
+                document.querySelector('form').submit();
+            } else {
+                // User canceled, do nothing
+            }
+        }
+        </script>         {% endcomment %}
+
+        
+      <!-- footer section -->
+        <footer class="footer_section">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4 footer-col">
+                <div class="footer_contact">
+                  <h4>
+                    Contact Us
+                  </h4>
+                  <div class="contact_link_box">
+                    <a href="">
+                      <i class="fa fa-map-marker" aria-hidden="true"></i>
+                      <span>
+                        Kanjirapally
+                      </span>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-phone" aria-hidden="true"></i>
+                      <span>
+                        Call +91 8113023079
+                      </span>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
+                      <span>
+                        dineease@gmail.com
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 footer-col">
+                <div class="footer_detail">
+                  <a href="" class="footer-logo">
+                    DineEase
+                  </a>
+                  <p>
+                    Necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 english words, combined with
+                  </p>
+                  <div class="footer_social">
+                    <a href="">
+                      <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-pinterest" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 footer-col">
+                <h4>
+                  Opening Hours
+                </h4>
+                <p>
+                  Everyday
+                </p>
+                <p>
+                  8.00 Am -11.00 Pm
+                </p>
+              </div>
+            </div>
+            <div class="footer-info">
+              <p>
+                &copy; <span id="displayYear"></span> All Rights Reserved By
+                <a href="https://html.design/">DineEase</a><br><br>
+                &copy; <span id="displayYear"></span> Distributed By
+                <a href="https://themewagon.com/" target="_blank">DineEase</a>
+              </p>
+            </div>
+          </div>
+        </footer>
+        <!-- footer section -->
+</body>
+</html>
