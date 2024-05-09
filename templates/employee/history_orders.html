@@ -82,13 +82,31 @@
 							</a>
 						</li>
 
+						<hr>
 						<!-- Leave -->
 						<li class="has-sub">
-							<a class="sidenav-item-link" href="{% url 'leave_list' %}">
+							<a class="sidenav-item-link" href="{% url 'leave_list' %}" id="listLeave">
 								<i class="mdi mdi-receipt"></i>
-								<span class="nav-text">Leave</span> 
+								<span class="nav-text">Leave List</span> 
 							</a>
 						</li>
+
+						<!-- Leave -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="{% url 'apply_leave' %}" id="listLeave">
+								<i class="mdi mdi-receipt"></i>
+								<span class="nav-text">Apply Leave</span> 
+							</a>
+						</li>
+
+						<!-- Leave -->
+						<li class="has-sub">
+							<a class="sidenav-item-link" href="{% url 'medical_leave' %}" id="medicalLeave">
+								<i class="mdi mdi-receipt"></i>
+								<span class="nav-text">Medical Leave</span> 
+							</a>
+						</li>
+						<hr>
 						<!-- Vendors -->
 						{% comment %} <li class="has-sub">
 							<a class="sidenav-item-link" href="javascript:void(0)">
