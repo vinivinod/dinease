@@ -2374,3 +2374,32 @@ def catering_paymenthandler(request):
             return HttpResponseBadRequest(str(e))
     else:
         return HttpResponseBadRequest("Invalid request")
+    
+
+from django.shortcuts import render, redirect
+from .models import CateringMenu
+
+def add_catering_menu(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        category = request.POST.get('category')
+        price = request.POST.get('price')
+        
+        # Create a new CateringMenu object
+        new_catering_menu = CateringMenu.objects.create(
+            name=name,
+            category=category,
+            price=price
+        )
+        
+        # Optionally, you can redirect to a success page
+        return redirect('admin_index')
+        
+    return render(request, 'admin_dashboard/catering_menu.html')
+
+from django.shortcuts import render
+from .models import CateringMenu
+
+def catering_menu_list(request):
+    catering_menus = CateringMenu.objects.all()
+    return render(request, 'admin_dashboard/catering_menu_list.html', {'catering_menus': catering_menus})
