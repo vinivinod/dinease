@@ -2393,7 +2393,7 @@ def add_catering_menu(request):
         )
         
         # Optionally, you can redirect to a success page
-        return redirect('admin_index')
+        return redirect('catering_menu_list')
         
     return render(request, 'admin_dashboard/catering_menu.html')
 
