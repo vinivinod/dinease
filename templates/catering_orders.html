@@ -165,6 +165,32 @@
         .payment-status.not-paid {
             color: red; /* You can change 'red' to the desired color for not paid status */
         }
+        .nav-container {
+          display: flex; /* Use flexbox to align nav elements horizontally */
+          justify-content: space-between; /* Ensure equal space between nav elements */
+      }
+      
+      .nav-item.dropdown .dropdown-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        min-width: 160px;
+        padding: 8px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        background-color: #fff;
+        border: 1px solid rgba(0,0,0,.15);
+        border-radius: .25rem;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+    }
+    
+    .nav-item.dropdown:hover .dropdown-menu {
+        display: block;
+    }
+    
     </style>        
     
 </head>
@@ -197,15 +223,34 @@
                   </li>
                   <li class="nav-item">
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'add_reservation' %}">Book Table</a>
-                    </li>
-                    <li class="nav-item active">
-                      <a class="nav-link" href="{% url 'booking_list'  %}">Bookings</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="{% url 'orders_lists' %}">Orders </a>
-                    </li>
+                    <div class="nav-container">
+                      <nav>
+                          <ul class="nav">
+                              <li class="nav-item dropdown">
+                                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown1">Pre-Booking</a>
+                                  <div class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                                      <a class="dropdown-item" href="{% url 'add_reservation' %}">Table Booking</a>
+                                      <a class="dropdown-item" href="{% url 'catering_booking' %}">Catering Booking</a>
+                                      <!-- Add more options as needed -->
+                                  </div>
+                              </li>
+                          </ul>
+                      </nav>
+                      
+                      <nav>
+                          <ul class="nav">
+                              <li class="nav-item dropdown active">
+                                  <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown2">History</a>
+                                  <div class="dropdown-menu" aria-labelledby="navbarDropdown2">
+                                      <a class="dropdown-item" href="{% url 'booking_list' %}">Bookings</a>
+                                      <a class="dropdown-item" href="{% url 'orders_lists' %}">Orders</a>
+                                      <a class="dropdown-item" href="{% url 'catering_booking_details' %}">Catering Bookings</a>
+                                      <!-- Add more options as needed -->
+                                  </div>
+                              </li>
+                          </ul>
+                      </nav>
+                  </div>         
                     <li class="nav-item">
                       <a class="nav-link" href="{% url 'loggout' %}">Logout</a>
                        </li>
