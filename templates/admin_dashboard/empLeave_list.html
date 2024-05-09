@@ -158,6 +158,14 @@
 							</div>
 						</li>
 
+						<!-- Stock -->
+						<li class="has-sub">
+							<a id="stock-menu-item" class="sidenav-item-link" href="{% url 'stock_view' %}">
+								<i class="mdi mdi-cart-outline mdi-34px"></i>
+								<span class="nav-text">Stock </span> 
+							</a>
+						</li>
+
 						<!-- Online Orders -->
 						<li class="has-sub">
 							<a class="sidenav-item-link" href="{% url 'order_list' %}">
@@ -173,10 +181,18 @@
 								<span class="nav-text">Reservations</span> 
 							</a>
 						</li>
+
+						<!-- Catering Menu -->
+						<li class="has-sub">
+							<a id="stock-menu-item" class="sidenav-item-link" href="{% url 'add_catering_menu' %}">
+								<i class="mdi mdi-food mdi-36px"></i>
+								<span class="nav-text">Catering Menu </span> 
+							</a>
+						</li>
 						<hr>
 						
 						<!-- Leave -->
-						<li class="has-sub active">
+						<li class="has-sub">
 							<a class="sidenav-item-link" href="{% url 'empLeave_list' %}">
 								<i class="mdi mdi-receipt"></i>
 								<span class="nav-text">Leave Taken</span> 
